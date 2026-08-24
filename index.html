@@ -513,9 +513,9 @@ dialog.shot img{display:block; width:100%; height:auto; border-radius:16px}
           <span class="tag">Research · Crypto Derivatives</span>
           <h3>Prediction Markets Fair-Value Engine</h3>
           <ul>
-            <li><strong>What it is:</strong> A fair-value engine for 15-minute crypto Up/Down markets. They settle on last-minute TWAP versus the window-open spot. It prices in real time with a Gaussian CDF: how far price is from the open, given vol and time left, as P(Up) from 0 to 1.</li>
-            <li><strong>How it prices them:</strong> Volatility is the main source of edge. Once a minute, a LightGBM model trained on ~2.1M rows of 1-minute BTC/ETH/SOL/XRP data (~5 years, 73 features) forecasts the next 15 minutes of vol instead of a trailing average. Every second the same formula uses that vol to emit P(Up).</li>
-            <li><strong>What it also gives you:</strong> A live terminal with second-by-second prices from Polymarket (Chainlink), Coinbase, and Binance on separate panels, and P(Up) on screen [top right] for fast decisions. — <a class="lnk" href="prediction-terminal.png" data-shot="terminal-shot">terminal</a></li>
+            <li><strong>What it is:</strong> A fair-value engine for 15-minute crypto Up/Down markets. They settle on the last 60-second average versus the window open. It prices them in real time with a Gaussian CDF: <strong>P(Up) = Φ((spot − open) / (σ × time left))</strong> — how far price is from the open, given vol and time left, as a probability from 0 to 1.</li>
+            <li><strong>How it prices them:</strong> Volatility is the main source of edge. Instead of a trailing average, a LightGBM model trained on ~2.1M rows of 1-minute BTC/ETH/SOL/XRP data (~5 years, 73 features) forecasts the next 15 minutes of volatility once a minute. Trees spit vol, not direction; every second the same formula turns that into P(Up).</li>
+            <li><strong>What it also gives you:</strong> A live trading terminal that pulls second-by-second prices from several exchanges (Polymarket, Coinbase, Binance) and shows fair value on screen [P(Up) in the top right] for fast decisions. — <a class="lnk" href="prediction-terminal.png" data-shot="terminal-shot">terminal</a></li>
           </ul>
           <a class="lnk" href="https://github.com/ilkostas/prediction-markets-fair-value-engine#tools-and-infrastructure" target="_blank" rel="noopener noreferrer">View the project</a>
         </article>
